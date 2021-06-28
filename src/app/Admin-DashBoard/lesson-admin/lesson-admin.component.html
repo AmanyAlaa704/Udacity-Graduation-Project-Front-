@@ -1,0 +1,217 @@
+<body>
+<!-- <button class="btn btn-outline-dark rounded-pill py-2  " (click)="addNewLesson()" id="btn" >Add New Lesson </button>
+
+<button class="btn btn-outline-dark2 rounded-pill py-2" (click)="addNew()" id="btn" >Show All Lessones </button> -->
+<div class="container-fluid">
+
+    <div style="text-align: center;">
+        <button class="btn btn-outline-dark" (click)="addNewLesson()" id="btn" >Add New Lesson </button>
+        <button class="btn btn-outline-dark" (click)="addNew()" id="btn" >Show All Lessones  </button>
+    </div>
+<hr>
+
+<div *ngIf="isOpen then add else table "></div>
+
+<ng-template #add>
+  <div class="formAdd">
+    <div class="home">
+        <h1 class="titel">Lesson</h1>
+        <h4 class="description">{{addORupdate}}</h4><br><br>
+        <form  >
+            <div>
+                <mat-label>Name:</mat-label>
+                <br>
+                <input matInput minlength="5" maxlength="15" type="text" [(ngModel)]="Lesson.title" id="title" #title="ngModel" name="title" [value]="Lesson.title" required>
+                <div  *ngIf="title?.invalid  && title?.touched">
+                    <strong  style="font-size: 15px;">
+                      <p class="alert alert-danger"  style="font-size: 15px;padding: 0;" *ngIf="title?.errors?.required">Lesson Name Required</p> 
+                    </strong>   
+                  </div>  
+                  <div  *ngIf="title?.invalid  && title?.touched">
+                    <strong  style="font-size: 15px;">
+                      <p class="alert alert-danger"  style="font-size: 15px;padding: 0;" *ngIf="title?.errors?.required">minlength 5 character</p> 
+                    </strong>   
+                  </div>   
+            </div>
+           
+            <br>
+    
+            <div>
+                <mat-label>Description:</mat-label><br>
+                <input matInput minlength="10" maxlength="100" type="text" id="details" name="details"required [(ngModel)]="Lesson.details" #details="ngModel" [value]="Lesson.details">
+                <div  *ngIf="details?.invalid  && details?.touched">
+                    <strong  style="font-size: 15px;">
+                      <p class="alert alert-danger"  style="font-size: 15px;padding: 0;" *ngIf="details?.errors?.required">Lesson details Required</p> 
+                    </strong>   
+                  </div>   
+                  <div  *ngIf="details?.invalid  && details?.touched">
+                    <strong  style="font-size: 15px;">
+                      <p class="alert alert-danger"  style="font-size: 15px;padding: 0;" *ngIf="details?.errors?.required">minlength 5 character</p> 
+                    </strong>   
+                  </div>   
+            </div>
+ 
+            <br>
+    
+            <div>
+                <mat-label>Type: </mat-label><br>
+                <input matInput minlength="5" maxlength="20" type="text" id="type" name="type" #type="ngModel" [(ngModel)]="Lesson.type" [value]="Lesson.type" required>
+                <div  *ngIf="type?.invalid  && type?.touched">
+                    <strong  style="font-size: 15px;">
+                      <p class="alert alert-danger"  style="font-size: 15px;padding: 0;" *ngIf="type?.errors?.required">Lesson type Required</p> 
+                    </strong>   
+                  </div> 
+            </div>
+           <br>
+    
+            <div>
+                <mat-label>Lessone Number: </mat-label><br>
+                <input min="0" oninput="validity.valid||(value='');" matInput type="number" id="contentNumber"  name="contentNumber" #contentNumber="ngModel"  required [(ngModel)]="Lesson.contentNumber" [value]="Lesson.contentNumber" >
+                <div  *ngIf="contentNumber?.invalid  && contentNumber?.touched">
+                    <strong  style="font-size: 15px;">
+                      <p class="alert alert-danger"  style="font-size: 15px;padding: 0;" *ngIf="contentNumber?.errors?.required">Lesson contentNumber Required</p> 
+                    </strong>   
+                  </div> 
+            </div>
+           
+            <br>
+    
+            <div>
+                <mat-label>Duration: </mat-label><br>
+                <input min="0" oninput="validity.valid||(value='');" allow-negative="false" matInput type="number" id="duration" name="duration"  #duration="ngModel" [(ngModel)]="Lesson.duration" [value]="Lesson.duration" required>
+               
+                <div  *ngIf="duration?.invalid  && duration?.touched">
+                    <strong  style="font-size: 15px;">
+                      <p class="alert alert-danger"  style="font-size: 15px;padding: 0;" *ngIf="duration?.errors?.required">Lesson duration Required</p> 
+                    </strong>   
+                  </div> 
+            </div>
+         
+            <br>
+    
+            <div>
+                <mat-label>Lecture: </mat-label><br>
+                <select required #lectureId="ngModel" id="lectureId" name="lectureId" [(ngModel)]="Lesson.lectureId" [value]="Lesson.lectureId" >
+                        <option *ngFor="let lecture of allLecture" value="{{lecture.id}}">{{lecture.tilte}}</option>
+                </select>
+                <div  *ngIf="lectureId?.invalid  && lectureId?.touched">
+                    <strong  style="font-size: 15px;">
+                      <p class="alert alert-danger"  style="font-size: 15px;padding: 0;" *ngIf="lectureId?.errors?.required">lecture Name Required</p> 
+                    </strong>   
+                  </div> 
+            </div><br>
+
+            <div>
+                <mat-label>Course: </mat-label><br>
+                <select required #crsId="ngModel" [(ngModel)]="Lesson.crsId" [value]="Lesson.crsId" id="crsId" name="crsId">
+                        <option *ngFor="let Course of allCourse" value="{{Course.id}}">{{Course.name}}</option>
+                </select>
+                <div  *ngIf="crsId?.invalid  && crsId?.touched">
+                    <strong  style="font-size: 15px;">
+                      <p class="alert alert-danger"  style="font-size: 15px;padding: 0;" *ngIf="crsId?.errors?.required">Course Name Required</p> 
+                    </strong>   
+                  </div> 
+            </div><br>
+    
+
+    <br>
+<div *ngIf="Lesson.id!=CheckId then update else addN ">
+</div>
+
+
+<ng-template #update>
+<button mat-button type="submit" class="btnSubmit" (click)="onUpdateLessonSubmit()" style="padding: 5px;">{{addORupdate}}</button>
+</ng-template>
+<ng-template #addN>
+
+    <button mat-button type="submit" class="btnSubmit" (click)="addNewL(Lesson)" style="padding: 5px;">{{addORupdate}}</button>
+    
+</ng-template>
+<div class="alert alert-warning" *ngIf="AddLessonFailed">
+    Add Lesson failed!<br />{{ error }}
+</div>
+</form>
+    </div>
+    </div>
+    </ng-template>
+
+
+
+    <ng-template #table>
+        <div  *ngFor="let lecture of allLecture">
+              <div class="row" style="background-color:rgb(159, 215, 241);width: 100%; height: 70px;font-weight: bolder;">
+                            <div class="col-md-12 centerText">
+                                <h1 style="font-size: xx-large;text-align: center;">{{lecture.tilte}}</h1>
+                            </div>
+                 </div>
+         
+            <div *ngFor="let lesson of allLesson , let i=index" class="card">
+                <div class="row" >
+                    <div *ngIf="lecture.id==lesson.lectureId">
+                        
+                        <div class="col-md-1">&nbsp;</div>
+                        <div class="col-md-4">
+                            <mat-card class="dataOfObjective" style="border-top-color: #0094f7">
+                               
+                                <mat-label class="titleData" style="text-align: center;">{{lecture.tilte}}</mat-label>
+                             
+                                <br>
+                                <table style="width: 60%;text-align: center;">
+                                    <tr>
+                                        <th> Title:</th>
+                                        <td>
+                                         {{lesson.title}}</td>
+
+                                    </tr> <tr>
+                                        <th>Details:</th>
+                                        <td>
+                                            {{lesson.details}}</td>
+
+                                    </tr>
+                                    <tr>
+                                        <th>Type:</th>
+                                        <td>
+                                            {{lesson.type}}</td>
+                                    </tr>
+                                    <tr>
+                                        <th>ContentNumber:</th>
+                                        <td>
+                                            {{lesson.contentNumber}}</td>
+                                    </tr>
+                                    <tr>
+                                        <th>Duration:</th>
+                                        <td>
+                                     
+                                        {{lesson.duration}}
+                                        </td>
+                                    </tr>
+                                </table>
+                              
+                                <br>
+                                <mat-label class="titleData" style="text-align: center;">
+                                  Course Name:
+                                </mat-label>
+                                <mat-label
+                                    style="text-align: center;line-height: 22px;font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;">
+                                    <div *ngFor="let c of allCourse">
+                                        <div *ngIf="c.id==lesson.crsId">
+                                            <td>{{c.name}}</td> 
+                                        </div>
+                                    </div>
+                                                                </mat-label>
+                                <br>
+                                <br />
+                                <button class="btn btn-outline-danger" style="margin: 10px;width: 250px;"
+                                (click)="openDeleteLessonModal(lesson.id)">Delete</button>
+                                <button class="btn btn-outline-primary" style="margin: 10px;width: 250px;"
+                                (click)="openUpdateLessonModal(lesson)">Update</button>
+                            </mat-card>
+                        </div>
+                        <div class="col-md-1">&nbsp;</div>
+                    </div>
+                    </div>
+          
+            </div>
+        </div>
+</ng-template>
+</div>

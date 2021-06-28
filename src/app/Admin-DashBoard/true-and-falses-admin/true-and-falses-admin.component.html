@@ -1,0 +1,107 @@
+<div class="container-fluid">
+
+    <div style="text-align: center;">
+        <button class="btn btn-outline-dark" (click)="ShowAddTrueAndFalseQuestion()" id="btnitem">Add True and False Question </button>
+        <button class="btn btn-outline-dark" (click)="ShowList()" id="btnitem">Show True and False Question </button>
+    </div>
+<hr>
+
+    <div *ngIf="isOpen then add else table "></div>
+    <ng-template #add>
+        <div class="home">
+            <div style="text-align: left;">
+                <h1 class="titel">True and False Question</h1>
+                <h4 class="description">{{AddOrUpdate}} </h4>
+            </div>
+            <hr>
+            <form style="padding: 10px; margin-bottom: 10%">
+            
+                <div>
+                    <!-- <div id="crsCategoryDiv">
+                        <label >Course Category</label>
+                        <select class="form-control"   #CourseSpecializationID="ngModel" [(ngModel)]="form.CourseSpecializationID" id="CourseSpecializationID" name="CourseSpecializationID" required
+                        [class.is-invalid]="CourseSpecializationID.invalid && CourseSpecializationID.touched" >
+                  
+                            <option> choose specialization</option>
+                            <option *ngFor="let item of specService.specializations" [value]="item.id">
+                                {{item.specializationID}}
+                            </option>
+                        </select>
+                        <small class="text-danger" [class.d-none]="CourseSpecializationID.untouched ||CourseSpecializationID.valid">
+                            Course Category Is Required</small>
+                            <br>
+                        <a style="margin: 10px;" href="/add-spec">Create New</a>
+                    </div> -->
+                    <mat-label>Question: </mat-label><br>
+                    <select [(ngModel)]="TrueAndFalseQuestion.qustionId" #qustionId="ngModel" id="qustionId" name="qustionId" 
+                    required="required"  [class.is-invalid]="qustionId.invalid && qustionId.touched" >
+                        <option value="0">Choose Question</option>
+                        <option *ngFor="let Que of QuestionList" value="{{Que.id}}">{{Que.title}}</option>
+                    </select>
+                  <small class="text-danger" [class.d-none]="qustionId.untouched ||qustionId.valid">
+                           Question Is Required</small>
+                            <br>  
+                </div><br>
+                <div>
+                    <mat-label>Right Answer: </mat-label><br>
+                    <input type="text" id="RightAnswer" name="RightAnswer" #RightAnswer="ngModel" [value]="TrueAndFalseQuestion.right"
+                        [(ngModel)]="TrueAndFalseQuestion.right" class="form-control" required        
+                        [class.is-invalid]="RightAnswer.invalid && RightAnswer.touched" >
+                        <small class="text-danger" [class.d-none]="RightAnswer.untouched ||RightAnswer.valid">Right Answer Is Required</small>
+                </div>
+                <br>
+           <div *ngIf="TrueAndFalseQuestion.id!=check; then update else add"></div>
+                <ng-template #update>
+                    <button mat-button type="submit" class="btnSubmit" (click)="UpdateTrueAndFalseQuestion(TrueAndFalseQuestion,TrueAndFalseQuestion.id)">{{AddOrUpdate}}</button>
+                </ng-template>
+                <ng-template #add>
+                    <button mat-button type="submit" class="btnSubmit" (click)="AddTrueAndFalseQuestion()">{{AddOrUpdate}}</button>
+                </ng-template>
+
+            </form>
+        </div>
+    </ng-template>
+    <ng-template #table>
+        <div class="row" style="background-color:rgb(159, 215, 241);width: 100%; height: 70px;font-weight: bolder;">
+            <div class="col-md-12 centerText">
+                <h1 style="font-size: xx-large;text-align: center;">True and False Questions</h1>
+            </div>
+ </div>
+            <div *ngFor="let Ques of QuestionList">
+            
+             
+                <div *ngFor="let TF of AllTrueAndFalseQuestion , let i=index" class="card">
+                    <div class="row" >
+                        <div *ngIf="TF.qustionId === Ques.id">
+                            
+                            <div class="col-md-1">&nbsp;</div>
+                            <div class="col-md-4">
+                                <mat-card class="dataOfObjective" style="border-top-color: #0094f7">
+                                   
+                                    <mat-label class="titleData" style="text-align: center;">{{Ques.title}}</mat-label>
+                                  
+                                    <br>
+                                    <mat-label class="titleData" style="text-align: center;">
+                                       Right Answer:
+                                    </mat-label>
+                                    <br>
+                                    <mat-label
+                                        style="text-align: center;line-height: 22px;font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;">
+                                        {{TF.right}}
+                                    </mat-label>
+                                    <br>
+                                    <br />
+                                    <button class="btn btn-outline-danger" style="margin: 10px;width: 250px;"
+                                        (click)="deleteTrueAndFalseQuestion(TF.id)">Delete</button>
+                                    <button class="btn btn-outline-primary" style="margin: 10px;width: 250px;"
+                                        (click)="UpdateTrueAndFalseQuestionForm(TF)">Update</button>
+                                </mat-card>
+                            </div>
+                            <div class="col-md-1">&nbsp;</div>
+                        </div>
+                        </div>
+              
+                </div>
+            </div>
+    </ng-template>
+</div>

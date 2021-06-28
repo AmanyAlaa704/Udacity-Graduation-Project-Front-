@@ -1,0 +1,19 @@
+<!-- 
+<div *ngIf="flag then header">
+</div>
+<ng-template #header> 
+    <app-header *ngIf="visibility" ></app-header>
+</ng-template> 
+
+<router-outlet></router-outlet>
+
+<div *ngIf="flag then footer">
+</div>
+<ng-template #footer> 
+    <app-footer *ngIf="visibility"></app-footer>
+</ng-template>  -->
+<!-- <app-header *ngIf="visibility"></app-header> -->
+<app-header *ngIf="visibility"></app-header>
+<!-- <app-header  ></app-header> -->
+<router-outlet></router-outlet> 
+<app-footer *ngIf="visibility"></app-footer>

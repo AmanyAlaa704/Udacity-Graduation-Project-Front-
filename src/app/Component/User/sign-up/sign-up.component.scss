@@ -1,0 +1,36 @@
+
+#btn{
+    background-color: #017a9b;
+     color: white;
+    text-align: center;
+    letter-spacing: 1px;
+    padding: 5px 18px 5px 18px;
+}
+#two
+{
+    margin-top: 50px;
+
+    margin-left: 150px;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    border: #017a9b 2px solid;
+    width: 700px; 
+    height: 900px;
+  
+
+}
+
+.example-full-width {
+    width: 90%;
+    padding-bottom: 30px;
+  }
+input{
+    padding: 8px;
+}
+.lineWhitOr{
+    display: flex;
+    line-height: 0;
+}
+.line{
+    width: 200px;
+}

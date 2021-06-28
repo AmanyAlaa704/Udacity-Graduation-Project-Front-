@@ -1,0 +1,117 @@
+<div class="container-fluid">
+
+  <div style="text-align: center;">
+      <button class="btn btn-outline-dark" (click)="ShowAddNewlec()" id="btnitem">Add New Lecuter </button>
+      <button class="btn btn-outline-dark" (click)="ShowList()" id="btnitem">Show Lecuters </button>
+  </div>
+<hr>
+
+  <div *ngIf="isOpen then add else table "></div>
+  <ng-template #add>
+      <div class="home">
+          <div style="text-align: left;">
+              <h1 class="titel">Lecuters</h1>
+              <h4 class="description">{{AddOrUpdate}} Lecuters</h4>
+          </div>
+          <hr>
+          <form style="padding: 10px; margin-bottom: 10%">
+              <div>
+                  <mat-label>Name: </mat-label><br>
+                  <input minlength="5" maxlength="15" type="text" id="txtSubName" name="txtSubName" #txtSubName="ngModel" [value]="lec.tilte"
+                      [(ngModel)]="lec.tilte" required>
+                      <div  *ngIf="txtSubName?.invalid  && txtSubName?.touched">
+                        <strong  style="font-size: 15px;">
+                          <p class="alert alert-danger"  style="font-size: 15px;padding: 0;" *ngIf="txtSubName?.errors?.required">Lecture Name Required</p> 
+                        </strong>   
+                      </div>     
+              </div><br>
+
+              <div>
+                  <mat-label>Description:</mat-label><br>
+                  <textarea minlength="5" maxlength="100" id="lectureDescription" style name="lectureDescription" #lectureDescription="ngModel"
+                      [(ngModel)]="lec.lectureDescription" required>{{lec.lectureDescription}}</textarea>
+                      <div  *ngIf="lectureDescription?.invalid  && lectureDescription?.touched">
+                        <strong  style="font-size: 15px;">
+                          <p class="alert alert-danger"  style="font-size: 15px;padding: 0;" *ngIf="lectureDescription?.errors?.required">Lecture Description Required</p> 
+                        </strong>   
+                      </div>   
+                    </div>
+              <div>
+                <mat-label>Number Of Lessen:</mat-label><br>
+                <input type="number" min="0" oninput="validity.valid||(value='');" #txtCrsLectureNumber="ngModel" id="txtCrsLectureNumber" name="txtCrsLectureNumber"
+                [value]="lec.lessoneNumber" [(ngModel)]="lec.lessoneNumber" required>
+                <div  *ngIf="txtCrsLectureNumber?.invalid  && txtCrsLectureNumber?.touched">
+                  <strong  style="font-size: 15px;">
+                    <p class="alert alert-danger"  style="font-size: 15px;padding: 0;" *ngIf="txtCrsLectureNumber?.errors?.required">Lecture Number Required</p> 
+                  </strong>   
+                </div>   
+                
+            </div>
+              
+
+              <div>
+                  <mat-label>Course: </mat-label><br>
+                  <select [(ngModel)]="lec.courseId" #categoryID="ngModel" id="categoryID" name="categoryID" required>
+                      <option *ngFor="let crs of course" [value]="crs.id">{{crs.name}}</option>
+                  </select>
+                  <div  *ngIf="categoryID?.invalid  && categoryID?.touched">
+                    <strong  style="font-size: 15px;">
+                      <p class="alert alert-danger"  style="font-size: 15px;padding: 0;" *ngIf="categoryID?.errors?.required">Course Name Required</p> 
+                    </strong>   
+                  </div> 
+              </div><br>
+              <div *ngIf="lec.id!=check; then update else add"></div>
+              <ng-template #update>
+                  <button mat-button type="submit" class="btnSubmit" (click)="UpdateSubData()">Update</button>
+              </ng-template>
+              <ng-template #add>
+                  <button mat-button type="submit" class="btnSubmit" (click)="AddNewSub()">ADD</button>
+              </ng-template>
+          </form>
+      </div>
+  </ng-template>
+  
+
+<ng-template #table>
+    <table class="table table-hover" class="home" style="align-content: center;margin-top: 80px;  border-bottom: 2px solid #dee2e6;" >
+      <thead >
+        <tr >
+          <th scope="col"class="all" >#</th>
+          <th scope="col" style="font-size: 20px; font-weight: 400;padding: 10px;">Titel</th>
+          <th scope="col" style="font-size: 20px; font-weight: 400;padding: 10px;">Course Name</th>
+          <th scope="col" style="font-size: 20px; font-weight: 400;padding: 10px;">Description</th>
+          <th scope="col" style="font-size: 20px; font-weight: 400;padding: 10px;">Number Of Lessen</th>
+          <th scope="col" style="font-size: 20px; font-weight: 400;padding: 10px;">Update</th>
+          <th scope="col" style="font-size: 20px; font-weight: 400;padding: 10px;">Delete</th>    
+        </tr>
+      </thead>
+     
+      <tbody *ngFor="let lec of alllec , let i=index" >
+       
+        <tr style="border-bottom: 2px solid #dee2e6;" >
+          <th scope="row"  >
+          <td>{{lec.tilte}}</td>
+          <td>
+          <div *ngFor="let crs of course">
+            <div *ngIf="lec.courseId == crs.id">
+                {{crs.name}} 
+            </div>
+        </div>
+      </td>
+        <td>{{lec.lectureDescription}}</td>
+          <td>{{lec.lessoneNumber}}</td>
+          
+          <td><button class="btn btn-outline-primary" (click)="updateSubbtnClick(lec)" >Update</button></td>
+          <td><button class="btn btn-outline-danger" (click)="deleteSub(lec.id)" >Delete</button></td>    
+        </tr>
+  
+      </tbody>
+   
+    </table>
+    
+    
+  
+      
+    </ng-template>
+  
+  </div>

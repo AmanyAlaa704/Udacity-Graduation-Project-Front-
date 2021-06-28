@@ -1,0 +1,103 @@
+<div class="container-fluid">
+
+  <div style="text-align: center;">
+      <button class="btn btn-outline-dark" (click)="ShowAddNewsub()" id="btnitem">Add New Sub Category </button>
+      <button class="btn btn-outline-dark" (click)="ShowList()" id="btnitem">Show Sub Category </button>
+  </div>
+<hr>
+
+  <div *ngIf="isOpen then add else table "></div>
+  <ng-template #add>
+      <div class="home">
+          <div style="text-align: left;">
+              <h1 class="titel">Sub Category</h1>
+              <h4 class="description">{{AddOrUpdate}} Sub Category</h4>
+          </div>
+          <hr>
+          <form style="padding: 10px; margin-bottom: 10%">
+              <div>
+                  <mat-label>Name: </mat-label><br>
+                  <input type="text" id="txtSubName" name="txtSubName" #txtSubName="ngModel" [value]="Subcat.subCategoryTitle"
+                      [(ngModel)]="Subcat.subCategoryTitle"  class="form-control" required        
+                      [class.is-invalid]="txtSubName.invalid && txtSubName.touched" >
+                      <small class="text-danger" [class.d-none]="txtSubName.untouched ||txtSubName.valid"> Title Is Required</small>                      
+              </div><br>
+
+              <div>
+                  <mat-label>Description:</mat-label><br>
+                  <textarea id="txtSubDescription" style name="txtSubDescription" #txtSubdescription="ngModel"
+                      [(ngModel)]="Subcat.subCategoryDescribtion"
+                      class="form-control" required        
+                      [class.is-invalid]="txtSubdescription.invalid && txtSubdescription.touched" >
+                      {{Subcat.subCategoryDescribtion}}</textarea>
+                      <small class="text-danger" [class.d-none]="txtSubdescription.untouched ||txtSubdescription.valid">Description Is Required</small>                      
+              </div>
+
+              
+
+              <div>
+                  <mat-label>Category: </mat-label><br>
+                  <select [(ngModel)]="Subcat.categoryID" #categoryID="ngModel" id="categoryID" name="categoryID"
+                  class="form-control" required        
+                      [class.is-invalid]="categoryID.invalid && categoryID.touched" 
+                  > 
+                      <option value="0">Choose Category</option>
+                      <option *ngFor="let cat of allCategory" [value]="cat.id">{{cat.catName}}</option>
+                  </select>
+                  <small class="text-danger" [class.d-none]="categoryID.untouched ||categoryID.valid">Category Is Required</small>                      
+
+              </div><br>
+              <div *ngIf="Subcat.id!=check; then update else add"></div>
+              <ng-template #update>
+                  <button mat-button type="submit" class="btnSubmit" (click)="UpdateSubData()">Update</button>
+              </ng-template>
+              <ng-template #add>
+                  <button mat-button type="submit" class="btnSubmit" (click)="AddNewSub()">ADD</button>
+              </ng-template>
+          </form>
+      </div>
+  </ng-template>
+  
+
+<ng-template #table>
+    <table class="table table-hover" class="home" style="align-content: center;margin-top: 80px;  border-bottom: 2px solid #dee2e6;" >
+      <thead >
+        <tr >
+          <th scope="col"class="all" >#</th>
+          <th scope="col" style="font-size: 20px; font-weight: 400;padding: 10px;">Titel</th>
+          <th scope="col" style="font-size: 20px; font-weight: 400;padding: 10px;">Category</th>
+          <th scope="col" style="font-size: 20px; font-weight: 400;padding: 10px;">Description</th>
+          <th scope="col" style="font-size: 20px; font-weight: 400;padding: 10px;">Update</th>
+          <th scope="col" style="font-size: 20px; font-weight: 400;padding: 10px;">Delete</th>    
+        </tr>
+      </thead>
+     
+      <tbody *ngFor="let Sub of allSubcategory , let i=index" >
+       
+        <tr style="border-bottom: 2px solid #dee2e6;" >
+          <th scope="row"  >
+          <td>{{Sub.subCategoryTitle}}</td>
+          <td>
+          <div *ngFor="let Cat of allCategory">
+            <div *ngIf="Sub.categoryID == Cat.id">
+                {{Cat.catName}}
+            </div>
+        </div>
+          </td>
+  
+          <td>{{Sub.subCategoryDescribtion}}</td>
+          
+          <td><button class="btn btn-outline-primary" (click)="updateSubbtnClick(Sub)" >Update</button></td>
+          <td><button class="btn btn-outline-danger" (click)="deleteSub(Sub.id)" >Delete</button></td>    
+        </tr>
+  
+      </tbody>
+   
+    </table>
+    
+    
+  
+      
+    </ng-template>
+  
+  </div>

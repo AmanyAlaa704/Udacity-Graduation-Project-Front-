@@ -1,0 +1,244 @@
+<div class="container-fluid">
+
+  <div style="text-align: center;">
+      <button class="btn btn-outline-dark" (click)="addNewLessonContent()" id="btn" > Add New Lesson Content </button>
+      <button class="btn btn-outline-dark" (click)="addNew()" id="btn" >Show All Lesson Content </button>
+  </div>
+<hr>
+<div *ngIf="isOpen then add else table"></div>
+<ng-template #table>
+  <div *ngFor="let lesson of allLesson , let i=index" >
+        <div class="row" style="background-color:rgb(159, 215, 241);width: 100%; height: 70px;font-weight: bolder;">
+                      <div class="col-md-12 centerText">
+                          <h1 style="font-size: xx-large;text-align: center;">{{lesson.title}}</h1>
+                      </div>
+           </div>
+   
+      <div *ngFor="let item of allLessonContent , let i=index" class="card">
+          <div class="row" >
+              <div *ngIf="lesson.id==item.lessonId">
+                  
+                  <div class="col-md-1">&nbsp;</div>
+                  <div class="col-md-4">
+                      <mat-card class="dataOfObjective" style="border-top-color: #0094f7">
+                         
+                          <mat-label class="titleData" style="text-align: center;">{{lesson.title}}</mat-label>
+                       <br>
+                          <br>
+                          <table style="width: 60%;text-align: center;">
+                              <tr>
+                                  
+                                   <th>Name:</th>
+                                  <td> {{item.title}}</td>
+
+                              </tr>
+                              <tr>
+                                  <th>Description:</th>
+                                  <td>  {{item.description}}</td>
+                              </tr>
+                              <tr>
+                                  <th>Header:</th>
+                                  <td> {{item.header}}</td>
+                              </tr>
+                              <tr>
+                                  <th>Type:</th>
+                                  <td> {{item.type}}</td>
+                              </tr>
+                          </table>
+                        
+                          <br>
+                          <mat-label class="titleData" style="text-align: center;">
+                            Lesson Title:
+                          </mat-label>
+                          <mat-label
+                              style="text-align: center;line-height: 22px;font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;">
+                              <div *ngFor="let lesson of allLesson , let i=index" >
+                                <div *ngIf="lesson.id==item.lessonId">
+                                       {{lesson.title}} 
+                              </div>
+                              </div>
+                          </mat-label>
+                          <br>
+                          <br />
+                          <mat-label class="titleData" style="text-align: center;">
+                            videoName:
+                          </mat-label>
+                          <mat-label
+                              style="text-align: center;line-height: 22px;font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;">
+                              <div *ngFor="let crsV of allCourseViedos " >
+                                <div *ngIf="crsV.id==item.videoLinkId">
+                               {{crsV.videoName}} 
+                               </div>
+                             </div>
+                          </mat-label>
+                          <br>
+                          <br />
+                         
+                          <mat-label class="titleData" style="text-align: center;">
+                            Course Name:
+                          </mat-label>
+                          <mat-label
+                              style="text-align: center;line-height: 22px;font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;">
+                              <div *ngFor="let crs of allCourse">
+                                <div *ngIf="crs.id==item.crsID">
+                                   {{crs.name}}
+                                </div>
+                            </div>
+                          </mat-label>
+                          <br>
+                          <br />
+                          <mat-label class="titleData" style="text-align: center;">
+                            Lecture Title:
+                          </mat-label>
+                          <mat-label
+                              style="text-align: center;line-height: 22px;font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;">
+                              
+                              <div *ngFor="let lec of allLecture">
+                                <div *ngIf="lec.id == item.lectureId">
+                                    {{lec.tilte}}
+                                </div>
+                            </div>
+                          </mat-label>
+                          <br>
+                          <br />
+                          <mat-label class="titleData" style="text-align: center;">
+                            QuestionGroup Title:
+                          </mat-label>
+                         <mat-label
+                              style="text-align: center;line-height: 22px;font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;">
+                              
+                              <div *ngFor="let QuestionGroup of allQuestionGroup">
+                                <div *ngIf="QuestionGroup.id==item.questionGroupId">
+                                    {{QuestionGroup.title}}
+                                </div>
+                              </div>
+                          </mat-label>
+                          <br>
+                          <br />
+                          <button class="btn btn-outline-danger" style="margin: 10px;width: 250px;"
+                          (click)="openDeleteLessonContentModal(item.id)">Delete</button>
+                          <button class="btn btn-outline-primary" style="margin: 10px;width: 250px;"
+                          (click)="openUpdateLessonContentModal(item)" >Update</button>
+                  </mat-card>
+                  </div>
+                  <div class="col-md-1">&nbsp;</div>
+              </div>
+              </div>
+    
+      </div>
+  </div>
+</ng-template>
+<ng-template #add>
+  <div class="formAdd">
+    <h1 class="titel">Lesson Content</h1>
+    <h4 class="description">{{addORupdate}}</h4><br><br>
+    <form >
+      <div class="mb-3">
+        <!-- <input type="text" class="form-control" placeholder="id" hidden formControlName="id"> -->
+        <div class="col">
+        <h1>    Lesson Content Title</h1>
+          <input type="text" class="form-control" placeholder="tilte"  [value]="lessonContent.title" [(ngModel)]="lessonContent.title"  #title="ngModel" id="title"  required>
+          <div  *ngIf="title?.invalid  && title?.touched">
+            <strong  style="font-size: 15px;">
+              <p class="alert alert-danger"  style="font-size: 15px;padding: 0;" *ngIf="title?.errors?.required">Title Required</p> 
+            </strong>   
+          </div> 
+        </div>
+        <div class="col">
+          <h1>    Lesson Content Description</h1>
+          <input type="text" class="form-control" placeholder="Lesson Content  Description" [value]="lessonContent.description" [(ngModel)]="lessonContent.description"  #description="ngModel" id="description"  required>
+          <div  *ngIf="description?.invalid  && description?.touched">
+            <strong  style="font-size: 15px;">
+              <p class="alert alert-danger"  style="font-size: 15px;padding: 0;" *ngIf="description?.errors?.required">Lesson Content  Description Required</p> 
+            </strong>   
+          </div>
+        </div>
+        <div class="col">
+            <h1>    Lesson Content Header</h1>
+           
+            <input type="text" class="form-control" placeholder="Lesson Content  Header" [value]="lessonContent.header" [(ngModel)]="lessonContent.header" id="header"  #header="ngModel"  required>
+            <div  *ngIf="header?.invalid  && header?.touched">
+              <strong  style="font-size: 15px;">
+                <p class="alert alert-danger"  style="font-size: 15px;padding: 0;" *ngIf="header?.errors?.required">Lesson Content  Header Required</p> 
+              </strong>   
+            </div>
+          </div>
+          <div class="col">
+            <h1>    Lesson Content Type</h1>
+            <input type="text" class="form-control" placeholder="Lesson Content Type" [value]="lessonContent.type" [(ngModel)]="lessonContent.type" id="type"  #type="ngModel"  required>
+            <div  *ngIf="type?.invalid  && type?.touched">
+              <strong  style="font-size: 15px;">
+                <p class="alert alert-danger"  style="font-size: 15px;padding: 0;" *ngIf="type?.errors?.required">Lesson Content Type Required</p> 
+              </strong>   
+            </div>
+          </div>
+          
+          <div class="col">
+            <h1>  Lesson Content videoLinkId</h1>
+            
+            <div class="input-group ">
+            <select  class="custom-select-sm BtnG" #videoLink [(ngModel)]="lessonContent.videoLinkId" [value]="lessonContent.videoLinkId" id="videoLinkId" name="videoLinkId" required>
+              <option selected>Choose videoLink</option>
+               <option *ngFor="let CrsV of allCourseViedos" value="{{CrsV.id}}">{{CrsV.videoName}}</option>
+            </select>
+          </div>
+        </div>
+        <div class="col">
+          <h1>Choose Course</h1>
+          <div class="input-group ">
+            <select class="custom-select-sm BtnG" id="crsId" #crsId  [(ngModel)]="lessonContent.crsID" [value]="lessonContent.crsID" name="crsId" required>
+            <option selected>Choose Course</option>
+              <option  *ngFor="let Course of allCourse" value="{{Course.id}}">{{Course.name}}</option>
+            </select>
+          </div>
+        </div>
+        <div class="col">
+            <h1>Choose Lecture</h1>
+            <div class="input-group ">
+              <select class="custom-select-sm BtnG" id="lectureId" #lectureId  [(ngModel)]="lessonContent.lectureId" [value]="lessonContent.lectureId" name="lectureId"  required>
+              <option selected>Choose Lecture</option>
+                <option  *ngFor="let lecture of allLecture" value="{{lecture.id}}">{{lecture.tilte}}</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="col">
+            <h1>Choose QuestionGroup</h1>
+            <div class="input-group ">
+              <select class="custom-select-sm BtnG" id="questionGroupId" #questionGroupId  [(ngModel)]="lessonContent.questionGroupId" [value]="lessonContent.questionGroupId" name="questionGroupId"  required >
+              <option selected>Choose QuestionGroup</option>
+                <option  *ngFor="let i of allQuestionGroup" value="{{i.id}}">{{i.title}}</option>
+              </select>
+            </div>
+          </div>
+          <div class="col">
+            <h1>Choose Lesson</h1>
+            <div class="input-group ">
+              <select class="custom-select-sm BtnG"  id="lessonId" #lessonId  [(ngModel)]="lessonContent.lessonId" [value]="lessonContent.lessonId" name="lessonId" required>
+              <option selected>Choose Lesson</option>
+                <option  *ngFor="let i of allLesson" value="{{i.id}}">{{i.title}}</option>
+              </select>
+            </div>
+          </div>
+      </div>
+      <div *ngIf="lessonContent.id!=CheckId then update else addN ">
+      </div>
+      
+      
+      <ng-template #update>
+      <button  mat-button type="submit" class="btnSubmit" (click)="onUpdateLessonContentSubmit()" style="padding: 5px;">{{addORupdate}}</button>
+      </ng-template>
+      <ng-template #addN>
+      
+          <button  mat-button type="submit"  class="btnSubmit" (click)="addNewL(lessonContent)" style="padding: 5px;">{{addORupdate}}</button>
+          
+      </ng-template>
+      <!-- <div class="alert alert-warning col" *ngIf="AddLessonContentFailed">
+          Add LessonContent failed!<br />{{ error }}
+      </div> -->
+    </form>
+    </div>
+</ng-template>
+
+
+</div>

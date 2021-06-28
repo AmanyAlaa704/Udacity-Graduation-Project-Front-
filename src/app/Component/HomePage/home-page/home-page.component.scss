@@ -1,0 +1,211 @@
+.title{
+    font-size: 45px;
+    font-weight: bold;
+    color: #2e3d49;
+    line-height: normal;
+    letter-spacing: 1px;
+  }
+  .txt{
+      font-size: 17.5px;
+      line-height: 1.6;
+      width: 40%;
+  }
+  .forWhom{
+      width: auto;
+      height: auto;
+      float: left;
+      margin-right: 15px;
+      text-align: center;
+      padding-top: 35px;
+      box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+      border-top: 6px solid ;
+      border-radius: 7px;
+  }
+  .btnWhom, .btnExplore{
+      background-color:  #0485a8;
+      color: white;
+      padding: 5px 20px 5px 30px;
+      letter-spacing: 2px;
+      border-radius: 10px;
+  }
+  .example-card {
+      max-width: 400px;
+    }
+    
+    .example-header-image {
+      background-image: url('https://material.angular.io/assets/img/examples/shiba1.jpg');
+      background-size: cover;
+    }
+    
+    .partCourses{
+       clear: both;
+       text-align: center;
+       font-size: xx-large;
+       margin-top: 110px ;
+       font-weight: 400;
+    }
+    .courses{
+      display: flex;
+      margin: 30px 0px 100px 100px;
+      flex-direction: row;
+      overflow: hidden;
+      outline: none;
+    
+   }
+   .course{
+       width: 239px;
+       height: 310px;
+       box-shadow: 0 4px 4px  rgba(133, 132, 132, 0.2);
+       margin-bottom: 50px;
+        border: 1px solid rgb(212, 210, 210);
+        box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+       }
+   .titleCourse{
+      font-weight: bold;
+       font-size: 17px; 
+   }
+   .courseTime{
+      margin-bottom: 0;
+       font-weight: 500;
+        color: rgb(85, 80, 80);
+   }
+   .partObjectiveWebSite{
+      letter-spacing: 1px;
+      text-align: center;
+      font-weight: 1000;
+      font-size: xx-large;
+      margin-top: 50px ;
+   }
+   .dataOfObjective{
+      width: 285px;
+      height: auto;
+      margin-right: 20px;
+      text-align: center;
+      padding: 30px;
+      border-top-color: #02b3e4;
+      border-top-color: coral;
+      box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+      border-top: 4px solid ;
+      border-radius: 7px;
+   }
+   .titleData{
+      font-weight: bold;
+      font-size: large;
+      color: rgb(58, 54, 54);
+  }
+  .explorePart{
+      background-color: #2f3c49;
+      color: white;
+      padding: 100px 8px 90px 8px;
+      width: 90%;
+      text-align: center;
+      margin: 70px;
+  }
+
+.parent
+{
+ 
+    width: 100%;
+    height: auto;
+    background-color:rgb(228, 246, 253);
+    padding-bottom: 60px;
+}
+
+
+#one
+{
+    margin-left: 200px;
+    display: inline-block;
+    justify-content: center;
+    text-align: center;
+}
+
+
+#first
+{
+    background-color:white;
+    width: 320px;
+    height: 350px;
+    margin-left: 120px;
+    text-align: center;
+    margin-top:150px ;
+   border-top: #02ccba 2px solid;
+   margin-bottom: 30px;
+   border-radius: 10px;
+  
+}
+#second
+{
+
+    background-color:white;
+    width: 320px;
+    height: 350px;
+    margin-left: 120px;
+    text-align: center;
+    margin-top:150px ;
+   border-top: #a951ed 2px solid;
+   margin-bottom: 30px;
+   border-radius: 10px;
+}
+
+.imgs
+{
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    position: relative;
+    top: -50px;
+    left: 50%;
+    transform: translateX(-50%);
+}
+#remain
+{
+    margin-top: -40px;
+    color: rgb(179, 177, 177);    
+}
+#now
+{
+      text-align: center ;
+      font-weight: 400;
+       margin-bottom: 20px;
+      font-size: 13px;
+       background-color: rgb(248, 244, 244); 
+       letter-spacing: 2px;
+       width: 320px;
+       height:120px;
+       color: rgb(110, 110, 110);
+    
+      
+}
+#rest
+{
+    // width: 500px;
+    // height: 700px ;
+   
+    display: inline-flex;
+}
+
+
+.specifyCategory
+{
+    position: absolute;
+    // top: 0;
+    width: 60px;
+    height: 2px;
+    background: #3c96e6;
+    // margin-left: 50px;
+    // color: #fff;
+    // line-height: 50px;
+    // text-align: center;
+    //  font-size: 20px; 
+}
+.specifyCategory:after
+{
+    content:"";
+    border-top: 10px solid #3c96e6;;  
+    border-left: 10px solid transparent;
+    border-right: 10px solid transparent;
+    position: relative;
+    top: 20px;
+    // left: -25px;
+}
